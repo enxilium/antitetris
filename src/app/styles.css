@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  color: #fff;
+  background-color: #406;
+  padding: 20px;
+  max-height: 100vh;
+}
