@@ -9,7 +9,7 @@ import { useBoard } from "/src/hooks/useBoard";
 import { useGameStats } from "/src/hooks/useGameStats";
 import { usePlayer } from "/src/hooks/usePlayer";
 
-const Tetris = ({ rows, columns, setGameOver }) => {
+const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const [gameStats, addLinesCleared] = useGameStats();
   const [player, setPlayer, resetPlayer] = usePlayer();
   const [board, setBoard] = useBoard({
@@ -37,6 +37,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         player={player}
         setGameOver={setGameOver}
         setPlayer={setPlayer}
+        setStartGame={setStartGame}
       />
     </div>
   );
