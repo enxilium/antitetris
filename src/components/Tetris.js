@@ -29,7 +29,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
       <Board board={board} />
       <div>
         <GameStats gameStats={gameStats} />
-        <Previews className="relative" tetrominoes={player.tetrominoes} />
+        <Previews tetrominoes={player.tetrominoes} />
       </div>
       <GameController
         board={board}

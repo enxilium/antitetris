@@ -1,19 +1,19 @@
-"use client"
-
 import { useState, useCallback } from "react";
-
 import { randomTetromino } from "/src/business/Tetrominoes";
 
 const buildPlayer = (previous) => {
   let tetrominoes;
+  let currentTetromino;
 
   if (previous) {
     tetrominoes = [...previous.tetrominoes];
-    tetrominoes.unshift(randomTetromino());
+    currentTetromino = tetrominoes.shift();
+    tetrominoes.push(randomTetromino());
   } else {
     tetrominoes = Array(5)
       .fill(0)
       .map((_) => randomTetromino());
+    currentTetromino = tetrominoes.shift();
   }
 
   return {
@@ -21,7 +21,7 @@ const buildPlayer = (previous) => {
     isFastDropping: false,
     position: { row: 0, column: 4 },
     tetrominoes,
-    tetromino: tetrominoes.pop()
+    tetromino: currentTetromino
   };
 };
 
