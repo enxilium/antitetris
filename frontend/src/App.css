@@ -1,0 +1,99 @@
+.App {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+.sidebar, .data-sidebar {
+  background-color: #f0f0f0;
+  padding: 20px;
+  width: 300px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.data-sidebar {
+  background-color: #e0e0e0;
+  z-index: 20;
+}
+
+.toggle-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  transition: left 0.3s ease-in-out;
+}
+
+.toggle-btn.open {
+  left: 310px;
+}
+
+.toggle-data-btn {
+  margin-bottom: 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 300px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.main-content.sidebar-closed {
+  margin-left: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input, button {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.data-sidebar ul {
+  padding-left: 0;
+}
+
+.delivery-item {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.delivery-item p {
+  margin: 5px 0;
+}
