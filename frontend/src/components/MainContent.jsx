@@ -26,12 +26,11 @@ const MainContent = ({ isSidebarOpen, deliveries, setDeliveries }) => {
 
   return (
     <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
-      <h1>TorontoGo Delivery Management</h1>
-      <h2>Deliveries</h2>
+      <h1>Leader board</h1>
       <ul>
         {deliveries.map((item) => (
           <li key={item._id}>
-            Pickup: {item.pickup} - Delivery: {item.delivery} - Description: {item.description}
+            Name: {item.pickup} - Score: {item.delivery} - Date: {item.description} - ID:{item._id}
             <button onClick={() => handleDeleteItem(item._id)}>Delete</button>
           </li>
         ))}

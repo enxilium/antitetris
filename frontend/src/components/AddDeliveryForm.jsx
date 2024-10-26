@@ -35,7 +35,7 @@ const AddDeliveryForm = ({ setDeliveries }) => {
         value={newItem.description}
         onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
       />
-      <button type="submit">Add Delivery</button>
+      <button type="submit">Add Data</button>
     </form>
   );
 };
