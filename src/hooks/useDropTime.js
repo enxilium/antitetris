@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useCallback, useEffect } from "react";
 
 const defaultDropTime = 1000;

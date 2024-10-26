@@ -10,5 +10,13 @@
   color: #fff;
   background-color: #406;
   padding: 20px;
-  max-height: 100vh;
+  height: 100vh;
+  align-items: center;
+}
+
+.Game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
