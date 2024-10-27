@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { randomTetromino } from "/src/business/Tetrominoes";
+import { randomTetromino, TETROMINOES } from "/src/business/Tetrominoes";
 
 const buildPlayer = (previous) => {
   let tetrominoes;
@@ -25,12 +25,24 @@ const buildPlayer = (previous) => {
   };
 };
 
-export const usePlayer = () => {
+export const usePlayer = (changeQuestion) => {
   const [player, setPlayer] = useState(buildPlayer());
 
   const resetPlayer = useCallback(() => {
     setPlayer((prev) => buildPlayer(prev));
+  }, [changeQuestion]);
+
+  const setNextTetrominoX = useCallback(() => {
+    setPlayer((prev) => ({
+      ...prev,
+      tetrominoes: [
+        TETROMINOES.X,
+        TETROMINOES.X,
+        TETROMINOES.X,
+        ...prev.tetrominoes.slice(3, -3)
+      ]
+    }));
   }, []);
 
-  return [player, setPlayer, resetPlayer];
+  return [player, setPlayer, resetPlayer, setNextTetrominoX];
 };

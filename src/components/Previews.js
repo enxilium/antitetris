@@ -1,17 +1,17 @@
 import React from "react";
 
-import Preview from "/src/components/Preview";
+import Preview from "./Preview";
 
 const Previews = ({ tetrominoes }) => {
-  // We want everything except the first one
-  const previewTetrominoes = tetrominoes.slice(1);
+  // We'll now show the next 3 pieces instead of just the next one
+  const previewTetrominoes = tetrominoes.slice(0, 3);
 
   return (
-    <div className="Previews">
+    <>
       {previewTetrominoes.map((tetromino, index) => (
         <Preview tetromino={tetromino} index={index} key={index} />
       ))}
-    </div>
+    </>
   );
 };
 

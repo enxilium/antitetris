@@ -32,23 +32,33 @@ const findDropPosition = ({ board, position, shape }) => {
   return { ...position, row };
 };
 
-export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
+const randomlyDisplaceTiles = (rows, probability = 0.1) => {
+  return rows.map(row =>
+    row.map(cell => {
+      if (cell.occupied && Math.random() < probability) {
+        const newRow = Math.floor(Math.random() * rows.length);
+        const newCol = Math.floor(Math.random() * row.length);
+        rows[newRow][newCol] = { ...cell };
+        return { ...defaultCell };
+      }
+      return cell;
+    })
+  );
+};
+
+export const nextBoard = ({ board, player, resetPlayer, addLinesCleared, attack = false }) => {
   const { tetromino, position } = player;
 
-  // Copy and clear spaces used by pieces that
-  // hadn't collided and occupied spaces permanently
   let rows = board.rows.map((row) =>
     row.map((cell) => (cell.occupied ? cell : { ...defaultCell }))
   );
 
-  // Drop position
   const dropPosition = findDropPosition({
     board,
     position,
     shape: tetromino.shape
   });
 
-  // Place ghost
   const className = `${tetromino.className} ${
     player.isFastDropping ? "" : "ghost"
   }`;
@@ -60,8 +70,6 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
     shape: tetromino.shape
   });
 
-  // Place the piece.
-  // If it collided, mark the board cells as collided
   if (!player.isFastDropping) {
     rows = transferToBoard({
       className: tetromino.className,
@@ -72,7 +80,6 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
     });
   }
 
-  // Check for cleared lines
   const blankRow = rows[0].map((_) => ({ ...defaultCell }));
   let linesCleared = 0;
   rows = rows.reduce((acc, row) => {
@@ -90,12 +97,15 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
     addLinesCleared(linesCleared);
   }
 
-  // If we collided, reset the player!
   if (player.collided || player.isFastDropping) {
     resetPlayer();
   }
 
-  // Return the next board
+  // Apply the attack if the flag is true
+  if (attack) {
+    rows = randomlyDisplaceTiles(rows);
+  }
+
   return {
     rows,
     size: { ...board.size }

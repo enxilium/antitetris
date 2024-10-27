@@ -4,3 +4,53 @@
   flex-direction: row;
   gap: 1rem;
 }
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.board-container {
+  position: relative;
+}
+
+.blackout-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  z-index: 10;
+}
+
+.increment-bar {
+  margin-top: 1rem;
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.increment-bar .bar {
+  height: 20px;
+  background-color: #4CAF50;
+  transition: width 0.3s ease-in-out;
+}
+
+.cyber-question {
+  background-color: #1a1a1a; /* Dark background */
+  color: #00ff00; /* Neon green text */
+  padding: 20px;
+  border: 2px solid #00ff00; /* Neon green border */
+  border-radius: 10px;
+  position: relative;
+}
+
+.timer {
+  font-size: 1.5em;
+  margin-top: 10px;
+  text-align: center;
+  color: #ff0000; /* Red color for urgency */
+}

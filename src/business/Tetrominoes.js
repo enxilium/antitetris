@@ -56,12 +56,21 @@ export const TETROMINOES = {
       [0, 0, 0]
     ],
     className: `${className} ${className}__z`
+  },
+  X: {
+    shape: [
+      [1, 0, 0, 1],
+      [0, 1, 0, 1],
+      [1, 0, 1, 0],
+      [1, 0, 0, 1]
+    ],
+    className: `${className} ${className}__x`
   }
 };
 
 export const randomTetromino = () => {
   const keys = Object.keys(TETROMINOES);
-  const index = Math.floor(Math.random() * keys.length);
+  const index = Math.floor(Math.random() * 7);
   const key = keys[index];
   return TETROMINOES[key];
 };
