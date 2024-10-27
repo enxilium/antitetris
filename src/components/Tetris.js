@@ -24,6 +24,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const [isQuestionVisible, setIsQuestionVisible] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [timer, setTimer] = useState(3); // Timer state
+  const [currentAttack, setCurrentAttack] = useState(null); // Attack state
   const incrementNames = ["PHISHING", "RANSOMWARE", "MITM", "DDoS"]; // Updated names
   const incrementColors = ["#4CAF50", "#FFA726", "#e31212", "#000000"]; // Corresponding colors
   const [incrementName, setIncrementName] = useState("NONE"); // Initial name
