@@ -35,7 +35,7 @@ const PlayerSetup = ({ onStartGame }) => {
         reader.readAsText(event.data);
       }
     });
-  }, [onStartGame, playerSecrets.player1]);
+  });
 
   const handleNext = () => {
     if (!playerSecrets[`player${currentPlayer}`].trim()) {
