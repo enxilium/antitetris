@@ -67,21 +67,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       setCorrectAnswers(0);
       changeQuestion();
     }
-  };
-
-  const handleAction = (action) => {
-    if (action === 1) {
-      if (incrementBar === 1) {
-        toggleQuestionVisibility();
-      } else if (incrementBar === 2) {
-        handleBlackout();
-      } else if (incrementBar === 3) {
-        handleAttack();
-      } else if (incrementBar >= 4) {
-        handleNextX();
-      }
-      setIncrementBar(0);
-    } else if (isQuestionVisible && (action === 2 || action === 3)) {
+    if (isQuestionVisible && (action === 2 || action === 3)) {
       const userAnswer = action === 2 ? 0 : 1;
       const correctAnswer = questions[currentQuestionIndex][1];
       if (userAnswer === correctAnswer) {
@@ -99,14 +85,56 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       }
     }
   };
+
+  const handleAction = (action) => {
+    if (action === 1) {
+      toggleQuestionVisibility();
+    } else if (action === 2) {
+      handleBlackout();
+    } else if (action === 3) {
+      handleAttack();
+    } else if (action >= 4) {
+      handleNextX();
+    }
+    setIncrementBar(0);
+
+  };
   
   const handleKeyPress = useCallback((event) => {
     if (event.key === '1') {
-      handleAction(1);
-    } else if (event.key === '2') {
-      handleAction(2);
-    } else if (event.key === '3') {
       handleAction(3);
+    } else if (event.key === '2') {
+      // Check if the answer is correct for key '2'
+      const correctAnswer = questions[currentQuestionIndex][1];
+      if (correctAnswer === 0) {
+        setCorrectAnswers(prev => {
+          const newCount = prev + 1;
+          if (newCount >= 5) {
+            setIsQuestionVisible(false);
+          }
+          return newCount;
+        });
+        changeQuestion(); // Move to the next question if correct
+      } else {
+        setIsQuestionVisible(false);
+        handleNextX(); // Handle incorrect answer
+      }
+    } else if (event.key === '3') {
+      // Check if the answer is correct for key '3'
+      const correctAnswer = questions[currentQuestionIndex][1];
+      if (correctAnswer === 1) {
+        setCorrectAnswers(prev => {
+          const newCount = prev + 1;
+          if (newCount >= 5) {
+            setIsQuestionVisible(false);
+          }
+          return newCount;
+        });
+        changeQuestion(); // Move to the next question if correct
+      } else {
+        setIsQuestionVisible(false);
+        handleNextX(); // Handle incorrect answer
+      }
     }
   }, [incrementBar, isQuestionVisible, currentQuestionIndex, changeQuestion]);
 
