@@ -1,6 +1,6 @@
 import React from "react";
 
-import Preview from "/src/components/Preview";
+import Preview from "./Preview";
 
 const Previews = ({ tetrominoes }) => {
   // We want everything except the first one
