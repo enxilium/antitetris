@@ -6,6 +6,7 @@ import GameController from "/src/components/GameController";
 import GameStats from "/src/components/GameStats";
 import Previews from "/src/components/Previews";
 import Questions, { questions } from "/src/components/Questions";
+import AttackInfo from "./Attackinfo";
 
 import { useBoard } from "/src/hooks/useBoard";
 import { useGameStats } from "/src/hooks/useGameStats";
@@ -184,6 +185,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
           <div className="bar" style={{width: `${(incrementBar / 3) * 100}%`}}></div>
         </div>
         {isQuestionVisible && <p>Correct Answers: {correctAnswers}/5</p>}
+        <AttackInfo attackName="SQL Injection" attackDescription="jeoweogwoufgoewgfouywegfouygweo" gameDescription="hbeuweoufygweofugouew" />
       </div>
       <div className="board-container">
         <Board board={board} />
