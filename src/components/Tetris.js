@@ -43,28 +43,17 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   }, [])
   const [blackoutInput, setBlackoutInput] = useState(""); // Input for blackout
   const [inputError, setInputError] = useState(false); // Error state for input
-  const typingLists = [
-    "aB3$dE7fH1",
-    "8gF*eH2#tQ",
-    "nP4@rJ6$sZ",
-    "kM9!vD1^xW",
-    "uL2&hR8*oY",
-    "1eW!zY5#qT",
-    "xN3^bT7&rS",
-    "vK7!gD2@jJ",
-    "qF4*rL1#eV",
-    "pZ5&nE9^wF",
-    "hX3$kL8!yM",
-    "rQ9!bV2#tD",
-    "sY7^hJ4&kP",
-    "mN2*eR1@zF",
-    "cB8^fH3!jQ",
-    "dX4@vT6#pS",
-    "tK5!gQ9^wA",
-    "lJ2&nR1*eT",
-    "oF3@jD7#yW",
-    "bM8!vK2^hR"
-  ]; // State to store typing lists
+
+  const generateRandomCipher = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*<>[]{}-+';
+    let result = '';
+    for (let i = 0; i < 12; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  };
+
+  const typingLists = Array.from({ length: 20 }, generateRandomCipher);
   const [currentBlackoutCode, setCurrentBlackoutCode] = useState(""); // Current code to remove blackout
 
   const changeQuestion = useCallback(() => {
@@ -204,12 +193,12 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       document.documentElement.style.setProperty('--bar-glow', 'grey'); // Remove glow effect
     } else if (value >= 8) {
       setIncrementName(incrementNames[3]); // Expert
-      document.documentElement.style.setProperty('--bar-color', '#EF5350'); // Most fancy color
-      document.documentElement.style.setProperty('--bar-glow', '0 0 30px #EF5350'); // Glow effect
+      document.documentElement.style.setProperty('--bar-color', '#000000'); // Most fancy color
+      document.documentElement.style.setProperty('--bar-glow', '0 0 30px #ffffff'); // Glow effect
     } else if (value >= 6) {
       setIncrementName(incrementNames[2]); // Advanced
-      document.documentElement.style.setProperty('--bar-color', '#FFA726'); // Fancier color
-      document.documentElement.style.setProperty('--bar-glow', '0 0 30px #FFA726'); // Glow effect
+      document.documentElement.style.setProperty('--bar-color', '#e31212'); // Fancier color
+      document.documentElement.style.setProperty('--bar-glow', '0 0 30px #e31212'); // Glow effect
     } else if (value >= 4) {
       setIncrementName(incrementNames[1]); // Intermediate
       document.documentElement.style.setProperty('--bar-color', '#FFA726'); // Intermediate color
