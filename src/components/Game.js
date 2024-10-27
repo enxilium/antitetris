@@ -2,7 +2,6 @@
 
 import "./Game.css";
 
-import Menu from "/src/components/Menu";
 import Tetris from "/src/components/Tetris";
 import GameOver from "./GameOver";
 import PlayerSetup from "./PlayerSetup";

@@ -1,0 +1,91 @@
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+.fade-in {
+  animation: fadeIn 1s forwards;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d0d0d;
+  color: #00ff00;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 99vw;
+  height: 99vh;
+  background-image: url("/matrix_bg.gif");
+  background-size: cover;
+}
+
+.Menu {
+  text-align: center;
+  background: #1a1a1a;
+  border: 2px solid #00ff00;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #00ff00;
+}
+
+.Header h1 {
+  font-size: 3em;
+  margin: 0;
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.Header p {
+  font-size: 1.2em;
+  margin: 0;
+  color: #00ff00;
+}
+
+.Button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #00ff00;
+  background: #1a1a1a;
+  border: 2px solid #00ff00;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  font-family: 'Oxanium', sans-serif;
+}
+
+.Button:hover {
+  background: #00ff00;
+  color: #1a1a1a;
+}
+
+.Footer p {
+  margin-top: 20px;
+  font-size: 0.8em;
+  color: #00ff00;
+}

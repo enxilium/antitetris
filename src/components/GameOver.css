@@ -1,28 +1,87 @@
-.Menu {
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0d0d0d;
+    color: #00ff00;
+    font-family: 'Oxanium', sans-serif;
+  }
+  
+  .page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("/matrix_bg.gif");
+    background-size: cover;
+  }
+  
+  .Menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 50vh;
     z-index: 100;
-}
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid #00ff00;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00ff00;
+  }
   
-.Button {
-padding: 40px 80px;
-font-size: 2em;
-border-radius: 20px;
-margin-bottom: 20px;
-border: none;
-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 60px;
-cursor: pointer;
-}
-
-.gameover-header {
+  .Button {
+    padding: 20px 40px;
+    font-size: 1.5em;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #00ff00;
+    background: #1a1a1a;
+    color: #00ff00;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 60px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .Button:hover {
+    background: #00ff00;
+    color: #1a1a1a;
+  }
+  
+  .gameover-header {
+    color: #ababab;
     font-size: 4em;
     margin: 20px;
-}
-
-.gameover-title {
+    text-shadow: 0 0 10px #00ff00;
+  }
+  
+  .gameover-title {
     font-size: 2em;
     margin: 10px;
-}
+    color: #ababab;
+  }
+  
+  .gameover-secret {
+    margin: 20px;
+    text-align: center;
+    color: #ababab;
+  }
+
+  span {
+    color: #00ff00;
+  }
+
+  p {
+    color: #ababab;
+  }
+
+  li {
+    color: #ababab;
+  }
+
+  .cybersecurity-info {
+    line-height: 1.5;
+  }

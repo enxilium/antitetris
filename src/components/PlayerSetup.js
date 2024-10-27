@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { socket } from "./GameController";
+import "./PlayerSetup.css";
 
 const PlayerSetup = ({ onStartGame }) => {
   const [playerSecrets, setPlayerSecrets] = useState({ player1: "", player2: "" });
@@ -7,6 +8,8 @@ const PlayerSetup = ({ onStartGame }) => {
   const [error, setError] = useState("");
   const [screen, setScreen] = useState("home");
   const [receivedSecret, setReceivedSecret] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
 
   // Initialize WebSocket message listener
   useEffect(() => {
@@ -71,34 +74,58 @@ const PlayerSetup = ({ onStartGame }) => {
     }));
   };
 
+  const handleTransition = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setScreen("setup");
+      setTransitioning(false);
+      setFadeIn(true);
+    }, 500); // Match the duration of the fade-out animation
+  };
+
+  useEffect(() => {
+    if (screen === "setup") {
+      setFadeIn(true);
+    }
+  }, [screen]);
+
   // Render the home screen with the "Start" button
   if (screen === "home") {
     return (
-      <div>
-        <h1 style={styles.title}>Tetris</h1>
-        <button onClick={() => setScreen("setup")} style={styles.startButton}>
-          Start
-        </button>
+      <div className={`page ${transitioning ? "fade-out" : ""}`}>
+        <div className="Menu">
+          <div className="Header">
+            <h1>ANTITETRIS</h1>
+            <p>Like a puzzle of tiles - but if your identity was on the line.</p>
+          </div>
+          <button className="Button" onClick={handleTransition}>
+            Enter
+          </button>
+          <div className="Footer">
+            <p>© 2024 New Hacks.</p>
+          </div>
+        </div>
       </div>
     );
   }
 
   // Render the player setup screen
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Enter Your Secret</h2>
+    <div className={`page ${fadeIn ? "fade-in" : ""}`} style={styles.container}>
+      <span>WARNING: Beyond this point, you will be vulnerable to all kinds of cyberattacks. Proceed with caution.</span>
+      <h2 style={styles.heading}>To participate, please enter your secret key below:</h2>
       <input
-        type="text"
-        placeholder="Enter your secret"
+        type="password"
+        placeholder="Completely unsuspicious text field"
         value={playerSecrets[`player${currentPlayer}`]}
         onChange={handleChange}
         style={styles.input}
       />
       {error && <p style={styles.error}>{error}</p>}
-      <button onClick={handleNext} style={styles.button}>
+      <button onClick={handleNext} style={styles.startButton}>
         Submit Secret
       </button>
-      {receivedSecret && <p style={styles.info}>Received opponent&apos;s secret. Game will start soon...</p>}
+      {receivedSecret && <p style={styles.info}>Waiting for opponent...</p>}
     </div>
   );
 };
@@ -117,25 +144,30 @@ const styles = {
     marginBottom: "2rem",
   },
   startButton: {
-    padding: "1rem 2rem",
-    fontSize: "1.5rem",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "10px",
+    marginTop: "20px",
+    padding: "10px 20px",
+    fontSize: "1em",
+    color: "#00ff00",
+    background: "#1a1a1a",
+    border: "2px solid #00ff00",
+    borderRadius: "5px",
     cursor: "pointer",
-    boxShadow: "rgba(0, 0, 0, 0.5) 0px 0px 60px",
+    transition: "background 0.3s, color 0.3s",
+    FontFace: "'Oxanium', sans-serif"
   },
   heading: {
     fontSize: "1.5rem",
     marginBottom: "1em",
   },
   input: {
+    borderRadius: "10px",
     padding: "0.5em",
     fontSize: "1rem",
     marginBottom: "1em",
     width: "80%",
     maxWidth: "300px",
+    boxShadow: "0 0 20px #00ff00",
+    border: "none",
   },
   button: {
     padding: "20px 40px",

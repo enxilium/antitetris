@@ -4,10 +4,24 @@
   box-sizing: border-box;
 }
 
+*{
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.body {
+  font-family: 'Oxanium', sans-serif;
+}
+
 .App {
-  font-family: sans-serif;
   text-align: center;
-  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
   padding: 20px;
   height: 100vh;
   align-items: center;
