@@ -50,7 +50,7 @@ const PlayerSetup = ({ onStartGame }) => {
 
   // Render the player setup screen
   return (
-    <div>
+    <div style={styles.container}>
       <h2 style={styles.heading}>Player {currentPlayer} Secret</h2>
       <input
         type="text"
@@ -68,6 +68,14 @@ const PlayerSetup = ({ onStartGame }) => {
 };
 
 const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    color: "transparent"
+  },
   title: {
     fontSize: "4rem",
     marginBottom: "2rem",
