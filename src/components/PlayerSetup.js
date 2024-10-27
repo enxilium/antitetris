@@ -4,9 +4,9 @@ const PlayerSetup = ({ onStartGame }) => {
   const [playerSecrets, setPlayerSecrets] = useState({ player1: "", player2: "" });
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [error, setError] = useState("");
+  const [screen, setScreen] = useState("home"); // New state to track the current screen
 
   const handleNext = () => {
-    // Check if the current input is empty
     if (!playerSecrets[`player${currentPlayer}`].trim()) {
       setError(`Player ${currentPlayer}'s secret cannot be empty.`);
       return;
@@ -17,7 +17,6 @@ const PlayerSetup = ({ onStartGame }) => {
     if (currentPlayer === 1) {
       setCurrentPlayer(2);
     } else {
-      // storing in the browser storage
       localStorage.setItem("player1Secret", playerSecrets.player1);
       localStorage.setItem("player2Secret", playerSecrets.player2);
       onStartGame(); // Starts the game once both secrets are stored
@@ -32,6 +31,19 @@ const PlayerSetup = ({ onStartGame }) => {
     }));
   };
 
+  // Render the home screen with the "Start" button
+  if (screen === "home") {
+    return (
+      <div>
+        <h1 style={styles.title}>Tetris</h1>
+        <button onClick={() => setScreen("setup")} style={styles.startButton}>
+          Start
+        </button>
+      </div>
+    );
+  }
+
+  // Render the player setup screen
   return (
     <div>
       <h2 style={styles.heading}>Player {currentPlayer} Secret</h2>
@@ -51,13 +63,19 @@ const PlayerSetup = ({ onStartGame }) => {
 };
 
 const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-    backgroundColor: "#f8f9fa",
+  title: {
+    fontSize: "4rem",
+    marginBottom: "2rem",
+  },
+  startButton: {
+    padding: "1rem 2rem",
+    fontSize: "1.5rem",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "10px",
+    cursor: "pointer",
+    boxShadow: "rgba(0, 0, 0, 0.5) 0px 0px 60px",
   },
   heading: {
     fontSize: "1.5rem",
@@ -76,7 +94,11 @@ const styles = {
     borderRadius: "20px",
     border: "none",
     boxShadow: "rgba(0, 0, 0, 0.5) 0px 0px 60px",
-    cursor: "pointer"
+    cursor: "pointer",
+  },
+  error: {
+    color: "red",
+    marginBottom: "1em",
   },
 };
 
