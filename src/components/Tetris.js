@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import "./Tetris.css";
 import { socket } from "./GameController";
 
@@ -223,12 +223,32 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   const incrementBarValue = () => {
     setIncrementBar((prev) => {
-      const newValue = prev + lines;
+      const newValue = prev + 1; // Increment by 1
       if (newValue % 2 === 0) { // Check if the value is 2, 4, 6, or 8
         updateIncrementName(newValue);
       }
       return newValue;
     });
+  };
+
+  const blackoutInputRef = useRef(null); // Ref for the input field
+
+  useEffect(() => {
+    if (isBlackedOut && blackoutInputRef.current) {
+      blackoutInputRef.current.focus(); // Autofocus on the input when blackout starts
+    }
+  }, [isBlackedOut]);
+
+  const handleBlackoutInputChange = (event) => {
+    const value = event.target.value;
+    setBlackoutInput(value);
+    if (value === currentBlackoutCode) {
+      setIsBlackedOut(false);
+      setBlackoutInput(""); // Clear input after successful match
+      setInputError(false);
+    } else {
+      setInputError(true); // Set error if input doesn't match
+    }
   };
 
   return (
@@ -259,9 +279,13 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         <div className={`blackout-overlay ${isBlackedOut ? 'visible' : 'hidden'}`}>
           <p>Type the following code to remove blackout:</p>
           <p className="blackout-code">{currentBlackoutCode}</p> {/* Display the random code */}
-          <input className="blackout-input"/>
-          <div>{blackoutInput}</div>
-
+          <input
+            ref={blackoutInputRef}
+            className={`blackout-input ${inputError ? 'error' : ''}`}
+            value={blackoutInput}
+            onChange={handleBlackoutInputChange}
+          />
+          {inputError && <div className="error-message">Not correct yet!</div>}
         </div>
       </div>
       <div className="panel">
