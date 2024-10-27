@@ -20,6 +20,11 @@ const PlayerSetup = ({ onStartGame }) => {
       localStorage.setItem("player1Secret", playerSecrets.player1);
       localStorage.setItem("player2Secret", playerSecrets.player2);
       onStartGame(); // Starts the game once both secrets are stored
+    //   const player1Secret = localStorage.getItem("player1Secret");
+    //   const player2Secret = localStorage.getItem("player2Secret");
+    //   console.log(player1Secret);
+    //   console.log(player2Secret);
+
     }
   };
 

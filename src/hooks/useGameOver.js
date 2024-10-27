@@ -10,9 +10,9 @@ export const useGameOver = () => {
   }, []);
 
   const resetStartGame = useCallback(() => {
-    setStartGame(false);
-    // setGameOver(false);
+    setStartGame(true);
+    setGameOver(false);
   }, []);
 
-  return [gameOver, setGameOver, resetGameOver, startGame, setStartGame];
+  return [gameOver, setGameOver, resetGameOver, startGame, setStartGame, resetStartGame];
 };
