@@ -41,6 +41,33 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     });
   
   }, [])
+  const [blackoutInput, setBlackoutInput] = useState(""); // Input for blackout
+  const [inputError, setInputError] = useState(false); // Error state for input
+  const incrementNames = ["Beginner", "Intermediate", "Advanced", "Expert"]; // Names for the increment bar
+  const [incrementName, setIncrementName] = useState(incrementNames[0]); // Initial name
+  const typingLists = [
+    "aB3$dE7fH1",
+    "8gF*eH2#tQ",
+    "nP4@rJ6$sZ",
+    "kM9!vD1^xW",
+    "uL2&hR8*oY",
+    "1eW!zY5#qT",
+    "xN3^bT7&rS",
+    "vK7!gD2@jJ",
+    "qF4*rL1#eV",
+    "pZ5&nE9^wF",
+    "hX3$kL8!yM",
+    "rQ9!bV2#tD",
+    "sY7^hJ4&kP",
+    "mN2*eR1@zF",
+    "cB8^fH3!jQ",
+    "dX4@vT6#pS",
+    "tK5!gQ9^wA",
+    "lJ2&nR1*eT",
+    "oF3@jD7#yW",
+    "bM8!vK2^hR"
+  ]; // State to store typing lists
+  const [currentBlackoutCode, setCurrentBlackoutCode] = useState(""); // Current code to remove blackout
 
   const changeQuestion = useCallback(() => {
     const randomIndex = Math.floor(Math.random() * questions.length);
@@ -53,7 +80,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const memoizedAddLinesCleared = useCallback((lines) => {
     addLinesCleared(lines);
     setIncrementBar((prev) => {
-      const newIncrement = prev + 1;
+      const newIncrement = prev + 0.5;
       if (newIncrement % 2 === 0) { // Check if the value is 2, 4, 6, or 8
         updateIncrementName(newIncrement);
       }
@@ -79,8 +106,10 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   async function handleBlackout() {
     setIsBlackedOut(true);
-    await sleep(3000);
-    setIsBlackedOut(false);
+    const randomIndex = Math.floor(Math.random() * typingLists.length);
+    setCurrentBlackoutCode(typingLists[randomIndex]); // Set a random code from typingLists
+    setBlackoutInput(""); // Reset the input
+    setInputError(false);
   };
 
   function handleNextX() {
@@ -143,7 +172,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         handleNextX(); // Handle incorrect answer
       }
     }
-  }, [incrementBar, isQuestionVisible, currentQuestionIndex, changeQuestion]);
+  }, [incrementBar, isQuestionVisible, currentQuestionIndex, changeQuestion, isBlackedOut, currentBlackoutCode]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
@@ -196,7 +225,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   const incrementBarValue = () => {
     setIncrementBar((prev) => {
-      const newValue = prev + 1;
+      const newValue = prev + 0.5;
       if (newValue % 2 === 0) { // Check if the value is 2, 4, 6, or 8
         updateIncrementName(newValue);
       }
@@ -229,7 +258,11 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       </div>
       <div className="board-container">
         <Board board={board} />
-        {isBlackedOut && <div className="blackout-overlay"></div>}
+        <div className={`blackout-overlay ${isBlackedOut ? 'visible' : 'hidden'}`}>
+          <p>Type the following code to remove blackout:</p>
+          <p className="blackout-code">{currentBlackoutCode}</p> {/* Display the random code */}
+          <div className="blackout-input">{blackoutInput}</div> {/* Display the user's input */}
+        </div>
       </div>
       <div className="panel">
         <Previews tetrominoes={player.tetrominoes} />
