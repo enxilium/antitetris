@@ -60,7 +60,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const memoizedAddLinesCleared = useCallback((lines) => {
     addLinesCleared(lines);
     setIncrementBar((prev) => {
-      const newIncrement = prev + 1;
+      const newIncrement = prev + 0.5;
       if (newIncrement % 2 === 0) { // Check if the value is 2, 4, 6, or 8
         updateIncrementName(newIncrement);
       }
@@ -215,7 +215,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   const incrementBarValue = () => {
     setIncrementBar((prev) => {
-      const newValue = prev + 1;
+      const newValue = prev + 0.5;
       if (newValue % 2 === 0) { // Check if the value is 2, 4, 6, or 8
         updateIncrementName(newValue);
       }
