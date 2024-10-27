@@ -23,25 +23,27 @@ export default AttackInfo;
 
 const styles = {
     panel: {
-      width: "300px",
+      width: "320px",
       padding: "20px",
       margin: "20px",
-      backgroundColor: "#333",
-      color: "#fff",
-      borderRadius: "10px",
-      boxShadow: "rgba(0, 0, 0, 0.5) 0px 0px 20px",
+      backgroundColor: "#1a1a1a", // Darker background for cybersecurity theme
+      color: "#e0e0e0", // Light grey text for contrast
+      borderRadius: "8px",
+      boxShadow: "rgba(0, 0, 0, 0.7) 0px 0px 15px",
+      border: "1px solid #444", // Subtle border for definition
     },
     title: {
       fontSize: "1.5rem",
       marginBottom: "1em",
-      textAlign: "center",
+      textAlign: "left", // Align text to the left
       textTransform: "uppercase",
+      color: "#00ff00", // Green color for cybersecurity theme
     },
     attackName: {
       fontSize: "1.25rem",
       fontWeight: "bold",
-      color: "#ff4c4c",
-      textAlign: "center",
+      color: "#ff3333", // Red color for alert
+      textAlign: "left", // Align text to the left
       marginBottom: "1em",
     },
     section: {
@@ -49,17 +51,19 @@ const styles = {
     },
     subtitle: {
       fontSize: "1.1rem",
-      color: "#ffd700",
+      color: "#00ccff", // Blue color for emphasis
+      textAlign: "left", // Align text to the left
     },
     text: {
       fontSize: "1rem",
-      color: "#ccc",
+      color: "#b0b0b0", // Slightly lighter grey for text
+      textAlign: "left", // Align text to the left
     },
     closeButton: {
       padding: "10px 20px",
       fontSize: "1rem",
       borderRadius: "10px",
-      backgroundColor: "#ff4c4c",
+      backgroundColor: "#ff3333",
       border: "none",
       cursor: "pointer",
       color: "#fff",
@@ -70,7 +74,7 @@ const styles = {
       padding: "10px 20px",
       fontSize: "1rem",
       borderRadius: "5px",
-      backgroundColor: "#ff4c4c",
+      backgroundColor: "#ff3333",
       border: "none",
       cursor: "pointer",
       color: "#fff",

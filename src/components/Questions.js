@@ -8,7 +8,6 @@ export const questions = [
     ["Is this link malicious: 'www.microsoft.com'", 0],
     ["Is this link malicious: 'www.facebok.com'", 1],
     ["Is this link malicious: 'www.github.com'", 0],
-    ["Is this link malicious: 'www.bankofamerica.com'", 0],
     ["Is this link malicious: 'www.ebay.com'", 0],
     ["Is this link malicious: 'www.y0utube.com'", 1],
     ["Is this link malicious: 'www.apple.com'", 0],
@@ -21,7 +20,6 @@ export const questions = [
     ["Is this link malicious: 'www.ebayk.com'", 1],
     ["Is this link malicious: 'www.reddit.com'", 0],
     ["Is this link malicious: 'www.pint3rest.com'", 1],
-    ["Is this link malicious: 'www.bbc.co.uk'", 0],
     ["Is this link malicious: 'www.0range.com'", 1],
     ["Is this link malicious: 'www.oreilly.com'", 0],
     ["Is this link malicious: 'www.snapch4t.com'", 1],
@@ -36,8 +34,6 @@ export const questions = [
     ["Is this link malicious: 'www.dropboxfiles.com'", 1],
     ["Is this link malicious: 'www.goggle.com'", 1],
     ["Is this link malicious: 'www.mail.gmial.com'", 1],
-    ["Is this link malicious: 'www.nytimes.com'", 0],
-    ["Is this link malicious: 'www.cnnnews.com'", 0]
 ];
 
 
@@ -46,6 +42,7 @@ const Questions = ({ currentQuestion }) => {
         <div className="Questions">
             <h3>Cyber Security Question:</h3>
             <p>{currentQuestion}</p>
+            console.log("question.js")
             <div className="instructions">
                 <p>Type <span className="key">2</span> for <span className="answer">Yes</span></p>
                 <p>Type <span className="key">3</span> for <span className="answer">No</span></p>
