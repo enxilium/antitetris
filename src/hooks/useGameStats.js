@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 const buildGameStats = () => ({
   level: 1,
   linesCompleted: 0,
-  linesPerLevel: 5,
+  linesPerLevel: 3,
   points: 0
 });
 
