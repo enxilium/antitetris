@@ -22,6 +22,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const [isQuestionVisible, setIsQuestionVisible] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [timer, setTimer] = useState(3); // Timer state
+  const [currentAttack, setCurrentAttack] = useState(null); // State to track the selected attack
 
   const changeQuestion = useCallback(() => {
     const randomIndex = Math.floor(Math.random() * questions.length);
@@ -45,8 +46,33 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     isAttacking
   });
 
+  // Array of attack details
+  const attacks = [
+    {
+      name: "DDoS",
+      attackDescription: "A DDoS attack floods a server with traffic, making it inaccessible.",
+      gameDescription: "Increases block fall speed, simulating a performance overload."
+    },
+    {
+      name: "Man-in-the-Middle",
+      attackDescription: "Intercepts and alters communications between two parties.",
+      gameDescription: "Randomly changes block shapes/colors to disrupt player strategy."
+    },
+    {
+      name: "Ransomware",
+      attackDescription: "Encrypts files and demands a ransom for access restoration.",
+      gameDescription: "Temporarily locks the game board, preventing block control."
+    },
+    {
+      name: "Phishing",
+      attackDescription: "Tricks users into revealing sensitive information by pretending to be trustworthy.",
+      gameDescription: "Shows pop-up messages that obscure parts of the game board, simulating confusion."
+    }
+  ];
+
   const handleAttack = () => {
     setIsAttacking(true);
+    setCurrentAttack(attacks[0]); // Set DDoS attack details
     setTimeout(() => setIsAttacking(false), 100);
   };
 
@@ -54,12 +80,14 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   const handleBlackout = async () => {
     setIsBlackedOut(true);
+    setCurrentAttack(attacks[1]); // Set Middleware attack details
     await sleep(3000);
     setIsBlackedOut(false);
   };
 
   const handleNextX = () => {
     setNextTetrominoX();
+    setCurrentAttack(attacks[2]); // Set Ransomware attack details
   };
 
   const toggleQuestionVisibility = () => {
@@ -68,23 +96,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       setCorrectAnswers(0);
       changeQuestion();
     }
-    if (isQuestionVisible && (action === 2 || action === 3)) {
-      const userAnswer = action === 2 ? 0 : 1;
-      const correctAnswer = questions[currentQuestionIndex][1];
-      if (userAnswer === correctAnswer) {
-        setCorrectAnswers(prev => {
-          const newCount = prev + 1;
-          if (newCount >= 5) {
-            setIsQuestionVisible(false);
-          }
-          return newCount;
-        });
-        changeQuestion();
-      } else {
-        setIsQuestionVisible(false);
-        handleNextX();
-      }
-    }
+    setCurrentAttack(attacks[3]); // Set Phishing attack details
   };
 
   const handleAction = (action) => {
@@ -98,14 +110,13 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       handleNextX();
     }
     setIncrementBar(0);
-
   };
-  
+
   const handleKeyPress = useCallback((event) => {
     if (event.key === '1') {
       handleAction(3);
     } else if (event.key === '2') {
-      // Check if the answer is correct for key '2'
+      // Handle the answer verification for key '2'
       const correctAnswer = questions[currentQuestionIndex][1];
       if (correctAnswer === 0) {
         setCorrectAnswers(prev => {
@@ -121,7 +132,6 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         handleNextX(); // Handle incorrect answer
       }
     } else if (event.key === '3') {
-      // Check if the answer is correct for key '3'
       const correctAnswer = questions[currentQuestionIndex][1];
       if (correctAnswer === 1) {
         setCorrectAnswers(prev => {
@@ -182,10 +192,16 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         <h1> Power Gauge </h1>
         <div className="increment-bar">
           <p>Increment Bar: {incrementBar}</p>
-          <div className="bar" style={{width: `${(incrementBar / 3) * 100}%`}}></div>
+          <div className="bar" style={{ width: `${(incrementBar / 3) * 100}%` }}></div>
         </div>
         {isQuestionVisible && <p>Correct Answers: {correctAnswers}/5</p>}
-        <AttackInfo attackName="SQL Injection" attackDescription="jeoweogwoufgoewgfouywegfouygweo" gameDescription="hbeuweoufygweofugouew" />
+        {currentAttack && (
+          <AttackInfo
+            attackName={currentAttack.name}
+            attackDescription={currentAttack.attackDescription}
+            gameDescription={currentAttack.gameDescription}
+          />
+        )}
       </div>
       <div className="board-container">
         <Board board={board} />
