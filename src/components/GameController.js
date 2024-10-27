@@ -28,7 +28,8 @@ const GameController = ({
   gameStats,
   player,
   setGameOver,
-  setPlayer
+  setPlayer,
+  setStartGame
 }) => {
   const [dropTime, pauseDropTime, resumeDropTime] = useDropTime({
     gameStats
@@ -53,7 +54,7 @@ const GameController = ({
         resumeDropTime();
       }
     } else if (action === Action.Quit) {
-      setGameOver(true);
+      setStartGame(true);
     } else {
       if (actionIsDrop(action)) pauseDropTime();
       if (!dropTime) {

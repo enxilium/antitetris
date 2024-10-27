@@ -4,21 +4,25 @@ import "./Game.css";
 
 import Menu from "/src/components/Menu";
 import Tetris from "/src/components/Tetris";
+import GameOver from "./GameOver";
+import PlayerSetup from "./PlayerSetup";
 
 import { useGameOver } from "/src/hooks/useGameOver";
 
 const Game = ({ rows, columns }) => {
-  const [gameOver, setGameOver, resetGameOver] = useGameOver();
+  const [gameOver, setGameOver, resetGameOver, startGame, setStartGame] = useGameOver();
 
-  const start = () => resetGameOver();
+  const restart = () => resetGameOver();
 
   return (
     <div className="Game">
-      {gameOver ? (
-        <Menu onClick={start} />
+      {startGame ? (
+        <PlayerSetup onStartGame={restart} />
+      ) : gameOver ? (
+        <GameOver onRestart={restart} />
       ) : (
         <div className="GameBoard">
-          <Tetris rows={rows} columns={columns} setGameOver={setGameOver} />
+          <Tetris rows={rows} columns={columns} setGameOver={setGameOver} setStartGame={setStartGame} />
         </div>
       )}
     </div>
