@@ -30,6 +30,8 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const incrementColors = ["#4CAF50", "#FFA726", "#e31212", "#000000"]; // Corresponding colors
   const [incrementName, setIncrementName] = useState("NONE"); // Initial name
 
+  const audioRef = useRef();
+
   useEffect(() => {
     console.log("socket initialized")
     socket.addEventListener('message', function (event) {
@@ -93,6 +95,14 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     addLinesCleared: memoizedAddLinesCleared,
     isAttacking
   });
+
+  const play = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+      audioRef.current.volume = 0.8;
+      audioRef.current.loop = false;
+    }
+  }
 
   const attacks = [
     {
@@ -162,6 +172,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   };
 
   function handleAction(action) {
+    play();
     if (action >= 8) {
       handleAttack();
     }
@@ -321,6 +332,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   return (
     <div className="Tetris">
+      <audio ref={audioRef} src='/assets/tetris_sound.mp3' />
       <div>
         {isQuestionVisible && (
           <div className="cyber-question">
