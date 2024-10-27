@@ -33,7 +33,7 @@ const PlayerSetup = ({ onStartGame }) => {
   };
 
   return (
-    <div>
+    <div style={styles.container}>
       <h2 style={styles.heading}>Player {currentPlayer} Secret</h2>
       <input
         type="text"
@@ -57,7 +57,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     height: "100vh",
-    backgroundColor: "#f8f9fa",
+    color: "transparent"
   },
   heading: {
     fontSize: "1.5rem",

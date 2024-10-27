@@ -1,7 +1,6 @@
 import { defaultCell } from "/src/business/Cell";
 import { movePlayer } from "/src/business/PlayerController";
 import { transferToBoard } from "/src/business/Tetrominoes";
-import { SendMessage } from "/src/components/GameController";
 
 export const buildBoard = ({ rows, columns }) => {
   const builtRows = Array.from({ length: rows }, () =>
@@ -96,7 +95,6 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared, attack 
 
   if (linesCleared > 0) {
     addLinesCleared(linesCleared);
-    SendMessage(linesCleared);
   }
 
   if (player.collided || player.isFastDropping) {
