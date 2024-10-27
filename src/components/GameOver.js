@@ -33,7 +33,7 @@ const GameOver = ({ onRestart, winner }) => {
     <div className="Menu">
       <h1 className="gameover-header">Game Over</h1>
       <p className="gameover-title">{winMessage}</p>
-      <p className="gameover-secret">Lost Player's Secret: {lostSecret}</p>
+      <p className="gameover-secret">Lost Player&apos;s Secret: {lostSecret}</p>
       <button className="Button" onClick={onRestart}>
         Play Again
       </button>

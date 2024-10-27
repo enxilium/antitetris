@@ -35,11 +35,11 @@ const PlayerSetup = ({ onStartGame }) => {
         reader.readAsText(event.data);
       }
     });
-  });
+  }, []);
 
   const handleNext = () => {
     if (!playerSecrets[`player${currentPlayer}`].trim()) {
-      setError(`Player ${currentPlayer}'s secret cannot be empty.`);
+      setError(`Player ${currentPlayer}&apos;s secret cannot be empty.`);
       return;
     }
 
