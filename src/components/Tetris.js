@@ -43,8 +43,6 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   }, [])
   const [blackoutInput, setBlackoutInput] = useState(""); // Input for blackout
   const [inputError, setInputError] = useState(false); // Error state for input
-  const incrementNames = ["Beginner", "Intermediate", "Advanced", "Expert"]; // Names for the increment bar
-  const [incrementName, setIncrementName] = useState(incrementNames[0]); // Initial name
   const typingLists = [
     "aB3$dE7fH1",
     "8gF*eH2#tQ",
@@ -80,7 +78,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const memoizedAddLinesCleared = useCallback((lines) => {
     addLinesCleared(lines);
     setIncrementBar((prev) => {
-      const newIncrement = prev + 0.5;
+      const newIncrement = prev + lines;
       if (newIncrement % 2 === 0) { // Check if the value is 2, 4, 6, or 8
         updateIncrementName(newIncrement);
       }
@@ -225,7 +223,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   const incrementBarValue = () => {
     setIncrementBar((prev) => {
-      const newValue = prev + 0.5;
+      const newValue = prev + lines;
       if (newValue % 2 === 0) { // Check if the value is 2, 4, 6, or 8
         updateIncrementName(newValue);
       }

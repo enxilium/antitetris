@@ -84,7 +84,7 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared, attack 
   let linesCleared = 0;
   rows = rows.reduce((acc, row) => {
     if (row.every((column) => column.occupied)) {
-      linesCleared += 0.5;
+      linesCleared += 1;
       acc.unshift([...blankRow]);
     } else {
       acc.push(row);
