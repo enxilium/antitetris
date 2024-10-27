@@ -142,3 +142,16 @@
   box-shadow: 0 0 20px var(--bar-color-8);
   animation: shake 0.5s infinite, pulse 1s infinite alternate; /* Add shake animation */
 }
+
+/* Glitch effect styles */
+.glitch {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/glitch.gif");
+  background-size: cover;
+  z-index: 999;
+  display: none;
+}

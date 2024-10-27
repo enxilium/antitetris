@@ -50,22 +50,23 @@ const GameController = ({
 
   const onKeyDown = ({ code }) => {
     const action = actionForKey(code);
+    console.log('Action:', action);
 
-    if (action === Action.Pause) {
-      if (dropTime) {
-        pauseDropTime();
-      } else {
-        resumeDropTime();
-      }
-    } else if (action === Action.Quit) {
-      setStartGame(true);
-    } else {
-      if (actionIsDrop(action)) pauseDropTime();
-      if (!dropTime) {
-        return;
-      }
+    // if (action === Action.Pause) {
+    //   if (dropTime) {
+    //     console.log('Pause');
+    //     pauseDropTime();
+    //   } else {
+    //     resumeDropTime();
+    //   }
+    // } else if (action === Action.Quit) {
+    //   setStartGame(true);
+    // } else {
+    //   if (actionIsDrop(action)) pauseDropTime();
+    //   if (!dropTime) {
+    //     return;
+    //   }
       handleInput({ action });
-    }
   };
 
   useEffect(() => {

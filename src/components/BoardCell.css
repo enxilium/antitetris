@@ -66,3 +66,14 @@
   border-color: rgba(240, 80, 195, 1);
   box-shadow: 0 0 20px rgba(240, 80, 195, 1);
 }
+
+.tetromino__x {
+  border-radius: 6px;
+  border-color: red;
+  background-image: url("/skull.gif");
+  background-size: cover;
+
+  box-shadow: 0 0 20px red;
+}
+
+

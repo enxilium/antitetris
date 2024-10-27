@@ -34,6 +34,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         reader.onload = function() {
             const actionNumber = reader.result;
             console.log('Attack received:', actionNumber);
+            showPopupAndGlitch();
             handleAction(Number(actionNumber));
         };
         reader.readAsText(event.data);
@@ -238,6 +239,16 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     }
   };
 
+  const showPopupAndGlitch = () => {
+    const glitch = document.getElementById('glitch');
+      glitch.style.display = 'block';
+
+      // Hide the glitch effect after the animation ends
+      setTimeout(() => {
+        glitch.style.display = 'none';
+      }, 500);
+  };
+
   return (
     <div className="Tetris">
       <div>
@@ -287,6 +298,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         setPlayer={setPlayer}
         setStartGame={setStartGame}
       />
+      <div id="glitch" className="glitch"></div>
     </div>
   );
 };

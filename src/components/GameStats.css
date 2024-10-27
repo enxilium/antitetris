@@ -24,3 +24,21 @@
   margin-bottom: 0.5em;
   color: rgba(255, 255, 255, 1);
 }
+
+.safe {
+  font-size: 2.8rem;
+  margin-bottom: 0.5em;
+  color: rgb(46, 172, 46);
+}
+
+.danger {
+  font-size: 2.8rem;
+  margin-bottom: 0.5em;
+  color: orange;
+}
+
+.extreme-danger {
+  font-size: 2.8rem;
+  margin-bottom: 0.5em;
+  color: red;
+}
