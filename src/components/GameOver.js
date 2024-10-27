@@ -21,7 +21,7 @@ const GameOver = ({ onRestart, win }) => {
         <p>
           Just like Tetris, cybersecurity is an ongoing, persistent game of cat and mouse between different parties.
           The purpose of our game was to highlight the importance of keeping your secrets safe - in the digital world, 
-          secrets can be anything from passwords to personal information. Don't give it away too easily!
+          secrets can be anything from passwords to personal information. Don&apos;t give it away too easily!
         </p>
         <h2>A few key takeaways:</h2>
         <ul>
