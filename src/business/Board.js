@@ -100,10 +100,10 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared, attack 
   if (player.collided || player.isFastDropping) {
     resetPlayer();
   }
-
   // Apply the attack if the flag is true
   if (attack) {
     rows = randomlyDisplaceTiles(rows);
+    
   }
 
   return {
