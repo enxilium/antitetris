@@ -3,20 +3,24 @@ import React, { useState } from "react";
 const PlayerSetup = ({ onStartGame }) => {
   const [playerSecrets, setPlayerSecrets] = useState({ player1: "", player2: "" });
   const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [error, setError] = useState("");
 
   const handleNext = () => {
+    // Check if the current input is empty
+    if (!playerSecrets[`player${currentPlayer}`].trim()) {
+      setError(`Player ${currentPlayer}'s secret cannot be empty.`);
+      return;
+    }
+
+    setError(""); // Clear any previous errors
+
     if (currentPlayer === 1) {
       setCurrentPlayer(2);
     } else {
-        // storing in the browser storage
+      // storing in the browser storage
       localStorage.setItem("player1Secret", playerSecrets.player1);
       localStorage.setItem("player2Secret", playerSecrets.player2);
       onStartGame(); // Starts the game once both secrets are stored
-    //   const player1Secret = localStorage.getItem("player1Secret");
-    //   const player2Secret = localStorage.getItem("player2Secret");
-    //   console.log(player1Secret);
-    //   console.log(player2Secret);
-
     }
   };
 
@@ -38,6 +42,7 @@ const PlayerSetup = ({ onStartGame }) => {
         onChange={handleChange}
         style={styles.input}
       />
+      {error && <p style={styles.error}>{error}</p>}
       <button onClick={handleNext} style={styles.button}>
         {currentPlayer === 1 ? "Next" : "Start Game"}
       </button>
@@ -66,13 +71,12 @@ const styles = {
     maxWidth: "300px",
   },
   button: {
-    padding: "0.8em 1.5em",
-    fontSize: "1rem",
-    color: "#fff",
-    backgroundColor: "#007bff",
+    padding: "20px 40px",
+    fontSize: "2em",
+    borderRadius: "20px",
     border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
+    boxShadow: "rgba(0, 0, 0, 0.5) 0px 0px 60px",
+    cursor: "pointer"
   },
 };
 
