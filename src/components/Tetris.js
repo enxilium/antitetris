@@ -347,7 +347,6 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
           <div className="bar" style={{ width: `${(incrementBar % 2 / 2) * 100}%` }}></div> {/* Adjusted width */}
         </div>
         <div className="increment-value">{incrementBar}</div> {/* Display the increment value separately */}
-        <button onClick={incrementBarValue}>Increment Bar</button> {/* New button to increment the bar */}
         {currentAttack && (
           <AttackInfo
             attackName={currentAttack.name}
