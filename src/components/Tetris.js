@@ -24,7 +24,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const [isQuestionVisible, setIsQuestionVisible] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [timer, setTimer] = useState(3); // Timer state
-  const [currentAttack, setCurrentAttack] = useState(null); // State to track the selected attack
+  const [currentAttack, setCurrentAttack] = useState(null); // Attack state
   const incrementNames = ["PHISHING", "RANSOMWARE", "MITM", "DDoS"]; // Updated names
   const incrementColors = ["#4CAF50", "#FFA726", "#e31212", "#000000"]; // Corresponding colors
   const [incrementName, setIncrementName] = useState("NONE"); // Initial name
@@ -36,9 +36,14 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         const reader = new FileReader();
         reader.onload = function() {
             const actionNumber = reader.result;
-            console.log('Attack received:', actionNumber);
-            showPopupAndGlitch();
-            handleAction(Math.floor(Number(actionNumber) / 2));
+            if (actionNumber == "GameOver") {
+              console.log('You win!', actionNumber);
+              handleGameOver(actionNumber);
+            } else {
+              console.log('Attack received:', actionNumber);
+              showPopupAndGlitch();
+              handleAction(Number(actionNumber));
+            }
         };
         reader.readAsText(event.data);
     }
@@ -92,22 +97,22 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     {
       name: "DDoS",
       attackDescription: "A DDoS attack floods a server with traffic, making it inaccessible.",
-      gameDescription: "Increases block fall speed, simulating a performance overload."
+      gameDescription: "Spreads the blocks out and attempts to overwhelm the player."
     },
     {
       name: "Man-in-the-Middle",
-      attackDescription: "Intercepts and alters communications between two parties.",
-      gameDescription: "Randomly changes block shapes/colors to disrupt player strategy."
+      attackDescription: "Intercepts and alters changes the message meant between two parties.",
+      gameDescription: "Intercepts the normal tetris blocks and replaces a malware block."
     },
     {
       name: "Ransomware",
-      attackDescription: "Encrypts files and demands a ransom for access restoration.",
-      gameDescription: "Temporarily locks the game board, preventing block control."
+      attackDescription: "Encrypts files and demands a ransom for restoration and access.",
+      gameDescription: "Encrypts the tetris board until the user types the correct code to unlock it."
     },
     {
       name: "Phishing",
       attackDescription: "Tricks users into revealing sensitive information by pretending to be trustworthy.",
-      gameDescription: "Shows pop-up messages that obscure parts of the game board, simulating confusion."
+      gameDescription: "Shows potentially malicious links, leading to great suffering to users when making a misdecision."
     }
   ];
 
@@ -124,7 +129,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   async function handleBlackout() {
     setIsBlackedOut(true);
     const randomIndex = Math.floor(Math.random() * typingLists.length);
-    setCurrentAttack(attacks[1]);
+    setCurrentAttack(attacks[2]);
     setCurrentBlackoutCode(typingLists[randomIndex]); // Set a random code from typingLists
     setBlackoutInput(""); // Reset the input
     setInputError(false);
@@ -132,7 +137,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   function handleNextX() {
     setNextTetrominoX();
-    setCurrentAttack(attacks[2]); // Set Ransomware attack details
+    setCurrentAttack(attacks[1]); 
   };
 
   function toggleQuestionVisibility() {
@@ -145,26 +150,29 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   };
 
   function handleAction(action) {
-    if (action === 1) {
-      toggleQuestionVisibility();
-    } else if (action === 2) {
-      handleBlackout();
-    } else if (action === 3) {
-      handleAttack();
-    } else if (action >= 4) {
+    if (action >= 8) {
       handleNextX();
     }
+    else if (action >= 6) {
+      handleAttack();
+    } 
+    else if (action === 4) {
+      handleBlackout();
+    } 
+    else if (action >= 2) {
+      toggleQuestionVisibility();
+    } 
     updateIncrementName(0); // Reset styles when action is taken
   };
 
   const handleKeyPress = useCallback((event) => {
-    if (event.key === '1') {
+    if (event.key === '1' && incrementBar >= 2) {
       SendMessage(incrementBar);
       setIncrementBar(0);
       setIncrementName("NONE"); // Reset to Beginner
       document.documentElement.style.setProperty('--bar-color', 'grey'); // Reset to basic color
       document.documentElement.style.setProperty('--bar-glow', 'grey'); // Remove glow effect
-    } else if (event.key === '2') {
+    } else if (event.key === '2' && isQuestionVisible) {
       const correctAnswer = questions[currentQuestionIndex][1];
       if (correctAnswer === 0) {
         setCorrectAnswers(prev => {
@@ -179,7 +187,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         setIsQuestionVisible(false);
         handleNextX(); // Handle incorrect answer
       }
-    } else if (event.key === '3') {
+    } else if (event.key === '3' && isQuestionVisible) {
       const correctAnswer = questions[currentQuestionIndex][1];
       if (correctAnswer === 1) {
         setCorrectAnswers(prev => {
@@ -282,6 +290,11 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       setTimeout(() => {
         glitch.style.display = 'none';
       }, 500);
+  };
+
+  function handleGameOver() {
+    // Navigate to the GameOver screen
+    setGameOver({ status: true, win: true });
   };
 
   return (

@@ -39,7 +39,7 @@ const PlayerSetup = ({ onStartGame }) => {
 
   const handleNext = () => {
     if (!playerSecrets[`player${currentPlayer}`].trim()) {
-      setError(`Player ${currentPlayer}'s secret cannot be empty.`);
+      setError(`Player ${currentPlayer}&apos;s secret cannot be empty.`);
       return;
     }
 
@@ -98,7 +98,7 @@ const PlayerSetup = ({ onStartGame }) => {
       <button onClick={handleNext} style={styles.button}>
         Submit Secret
       </button>
-      {receivedSecret && <p style={styles.info}>Received opponent's secret. Game will start soon...</p>}
+      {receivedSecret && <p style={styles.info}>Received opponent&apos;s secret. Game will start soon...</p>}
     </div>
   );
 };
