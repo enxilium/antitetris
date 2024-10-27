@@ -13,6 +13,7 @@
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
     "react-scripts": "4.0.0",
+    "websocket": "^1.0.35",
     "ws": "^8.18.0"
   },
   "devDependencies": {

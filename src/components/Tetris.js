@@ -7,6 +7,7 @@ import GameController from "/src/components/GameController";
 import GameStats from "/src/components/GameStats";
 import Previews from "/src/components/Previews";
 import Questions, { questions } from "/src/components/Questions";
+import AttackInfo from "./AttackInfo";
 
 import { useBoard } from "/src/hooks/useBoard";
 import { useGameStats } from "/src/hooks/useGameStats";
@@ -86,16 +87,43 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     isAttacking
   });
 
+  const attacks = [
+    {
+      name: "DDoS",
+      attackDescription: "A DDoS attack floods a server with traffic, making it inaccessible.",
+      gameDescription: "Increases block fall speed, simulating a performance overload."
+    },
+    {
+      name: "Man-in-the-Middle",
+      attackDescription: "Intercepts and alters communications between two parties.",
+      gameDescription: "Randomly changes block shapes/colors to disrupt player strategy."
+    },
+    {
+      name: "Ransomware",
+      attackDescription: "Encrypts files and demands a ransom for access restoration.",
+      gameDescription: "Temporarily locks the game board, preventing block control."
+    },
+    {
+      name: "Phishing",
+      attackDescription: "Tricks users into revealing sensitive information by pretending to be trustworthy.",
+      gameDescription: "Shows pop-up messages that obscure parts of the game board, simulating confusion."
+    }
+  ];
+
   function handleAttack() {
     if (!isAttacking) { // Ensure attack only runs if not already attacking
       setIsAttacking(true);
       setTimeout(() => setIsAttacking(false), 1000); // Reset after 1 second
     }
+    setIsAttacking(true);
+    setCurrentAttack(attacks[0]); // Set DDoS attack details
+    setTimeout(() => setIsAttacking(false), 1000);
   };
 
   async function handleBlackout() {
     setIsBlackedOut(true);
     const randomIndex = Math.floor(Math.random() * typingLists.length);
+    setCurrentAttack(attacks[1]);
     setCurrentBlackoutCode(typingLists[randomIndex]); // Set a random code from typingLists
     setBlackoutInput(""); // Reset the input
     setInputError(false);
@@ -103,6 +131,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   function handleNextX() {
     setNextTetrominoX();
+    setCurrentAttack(attacks[2]); // Set Ransomware attack details
   };
 
   function toggleQuestionVisibility() {
@@ -111,6 +140,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       setCorrectAnswers(0);
       changeQuestion();
     }
+    setCurrentAttack(attacks[3]);
   };
 
   function handleAction(action) {
@@ -270,6 +300,13 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         <div className="increment-value">{incrementBar}</div> {/* Display the increment value separately */}
         <button onClick={incrementBarValue}>Increment Bar</button> {/* New button to increment the bar */}
         {isQuestionVisible && <p>Correct Answers: {correctAnswers}/5</p>}
+        {currentAttack && (
+          <AttackInfo
+            attackName={currentAttack.name}
+            attackDescription={currentAttack.attackDescription}
+            gameDescription={currentAttack.gameDescription}
+          />
+        )}
       </div>
       <div className="board-container">
         <Board board={board} />
