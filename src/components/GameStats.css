@@ -1,6 +1,5 @@
 .GameStats {
   position: relative;
-  width: 22vw;
   max-height: fit-content;
   list-style-type: none;
   color: rgba(255, 255, 255, 0.5);

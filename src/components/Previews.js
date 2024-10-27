@@ -4,13 +4,11 @@ import Preview from "/src/components/Preview";
 
 const Previews = ({ tetrominoes }) => {
   // We want everything except the first one
-  const previewTetrominoes = tetrominoes.slice(1);
+  const previewTetrominoes = tetrominoes[1];
 
   return (
     <div className="Previews">
-      {previewTetrominoes.map((tetromino, index) => (
-        <Preview tetromino={tetromino} index={index} key={index} />
-      ))}
+        <Preview tetromino={previewTetrominoes}/>
     </div>
   );
 };

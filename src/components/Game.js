@@ -1,5 +1,7 @@
 "use client"
 
+import "./Game.css";
+
 import Menu from "/src/components/Menu";
 import Tetris from "/src/components/Tetris";
 
@@ -15,7 +17,9 @@ const Game = ({ rows, columns }) => {
       {gameOver ? (
         <Menu onClick={start} />
       ) : (
-        <Tetris rows={rows} columns={columns} setGameOver={setGameOver} />
+        <div className="GameBoard">
+          <Tetris rows={rows} columns={columns} setGameOver={setGameOver} />
+        </div>
       )}
     </div>
   );

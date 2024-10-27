@@ -6,6 +6,23 @@ import { playerController } from "/src/business/PlayerController";
 import { useDropTime } from "/src/hooks/useDropTime";
 import { useInterval } from "/src/hooks/useInterval";
 
+const socket = new WebSocket('ws://localhost:8080');
+
+// Listen for messages from the server
+socket.addEventListener('message', function (event) {
+    console.log('Message from server:', event.data);
+    // Update the DOM or perform other actions based on the received message
+});
+
+// Send a message to the server
+export function SendMessage(data) {
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send(data);
+    } else {
+        console.error('WebSocket is not open');
+    }
+}
+
 const GameController = ({
   board,
   gameStats,

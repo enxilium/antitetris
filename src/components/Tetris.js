@@ -22,14 +22,10 @@ const Tetris = ({ rows, columns, setGameOver }) => {
 
   return (
     <div className="Tetris">
-      <div>
-        <GameStats gameStats={gameStats} />
-        <h1>Tetris</h1>
-      </div>
       <Board board={board} />
-      <div>
-        <GameStats gameStats={gameStats} />
+      <div className="panel">
         <Previews tetrominoes={player.tetrominoes} />
+        <GameStats gameStats={gameStats} />
       </div>
       <GameController
         board={board}
