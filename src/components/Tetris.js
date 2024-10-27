@@ -89,8 +89,6 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     setTimeout(() => setIsAttacking(false), 100);
   };
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
   async function handleBlackout() {
     setIsBlackedOut(true);
     const randomIndex = Math.floor(Math.random() * typingLists.length);
