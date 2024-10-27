@@ -11,6 +11,7 @@ export default function App() {
   const play = () => {
     if (audioRef.current) {
       audioRef.current.play()
+      audioRef.current.volume = 0.3
     }
   }
   return (
