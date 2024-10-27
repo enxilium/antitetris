@@ -137,11 +137,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
 
   return (
     <div className="Tetris">
-      <Board board={board} />
-      <div className="panel">
       <div>
-        <GameStats gameStats={gameStats} />
-        <h1>Tetris</h1>
         {isQuestionVisible && (
           <div className="cyber-question">
             <Questions currentQuestion={currentQuestion} />
@@ -154,6 +150,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
           <button onClick={handleNextX}>Next X</button>
           <button onClick={toggleQuestionVisibility}>Toggle Questions</button>
         </div>
+        <h1> Power Gauge </h1>
         <div className="increment-bar">
           <p>Increment Bar: {incrementBar}</p>
           <div className="bar" style={{width: `${(incrementBar / 3) * 100}%`}}></div>
@@ -164,8 +161,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         <Board board={board} />
         {isBlackedOut && <div className="blackout-overlay"></div>}
       </div>
-      <div>
-        <GameStats gameStats={gameStats} />
+      <div className="panel">
         <Previews tetrominoes={player.tetrominoes} />
         <GameStats gameStats={gameStats} />
       </div>
@@ -177,7 +173,6 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         setPlayer={setPlayer}
       />
     </div>
-  </div>
   );
 };
 

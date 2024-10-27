@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 .button-container {
