@@ -94,11 +94,12 @@
 }
 
 .cyber-question {
-  background-color: #1a1a1a; /* Dark background */
-  color: #00ff00; /* Neon green text */
+  background-color: #1a1a1a;
+  color: #00ff00;
   padding: 20px;
-  border: 2px solid #00ff00; /* Neon green border */
+  border: 2px solid #00ff00;
   border-radius: 10px;
+  margin-bottom: 20px;
   position: relative;
 }
 
@@ -106,7 +107,14 @@
   font-size: 1.5em;
   margin-top: 10px;
   text-align: center;
-  color: #ff0000; /* Red color for urgency */
+  color: #ff0000;
+}
+
+.questions-left {
+  font-size: 1.2em;
+  margin-top: 10px;
+  text-align: center;
+  color: #00ccff;
 }
 
 .panel {

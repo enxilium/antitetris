@@ -65,6 +65,15 @@ export const TETROMINOES = {
       [1, 0, 0, 1]
     ],
     className: `${className} ${className}__x`
+  },
+  Y: {
+    shape: [
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [1, 0, 1, 0],
+      [0, 1, 0, 0]
+    ],
+    className: `${className} ${className}__x`
   }
 };
 

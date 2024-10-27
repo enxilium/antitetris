@@ -30,6 +30,16 @@ export const usePlayer = (changeQuestion) => {
     setPlayer((prev) => buildPlayer(prev));
   }, [changeQuestion]);
 
+  const setNextTetrominoY = useCallback(() => {
+    setPlayer((prev) => ({
+      ...prev,
+      tetrominoes: [
+        ...prev.tetrominoes.slice(1),
+        TETROMINOES.Y
+      ]
+    }));
+  }, []);
+
   const setNextTetrominoX = useCallback(() => {
     setPlayer((prev) => ({
       ...prev,
@@ -40,5 +50,5 @@ export const usePlayer = (changeQuestion) => {
     }));
   }, []);
 
-  return [player, setPlayer, resetPlayer, setNextTetrominoX];
+  return [player, setPlayer, resetPlayer, setNextTetrominoX, setNextTetrominoY];
 };

@@ -13,6 +13,7 @@ import { useBoard } from "/src/hooks/useBoard";
 import { useGameStats } from "/src/hooks/useGameStats";
 import { usePlayer } from "/src/hooks/usePlayer";
 import { SendMessage } from "./GameController";
+import { defaultCell } from "/src/business/Cell";
 
 const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const [gameStats, addLinesCleared] = useGameStats();
@@ -72,7 +73,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     setTimer(3); // Reset timer when changing question
   }, []);
 
-  const [player, setPlayer, resetPlayer, setNextTetrominoX] = usePlayer(changeQuestion);
+  const [player, setPlayer, resetPlayer, setNextTetrominoX, setNextTetrominoY] = usePlayer(changeQuestion);
   const memoizedAddLinesCleared = useCallback((lines) => {
     addLinesCleared(lines);
     setIncrementBar((prev) => {
@@ -102,7 +103,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     {
       name: "Man-in-the-Middle",
       attackDescription: "Intercepts and alters changes the message meant between two parties.",
-      gameDescription: "Intercepts the normal tetris blocks and replaces a malware block."
+      gameDescription: "Intercepts the normal tetris blocks and replaces a difficult malware block."
     },
     {
       name: "Ransomware",
@@ -113,8 +114,14 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       name: "Phishing",
       attackDescription: "Tricks users into revealing sensitive information by pretending to be trustworthy.",
       gameDescription: "Shows potentially malicious links, leading to great suffering to users when making a misdecision."
+    },
+    {
+      name: "Download Malware",
+      attackDescription: "Being the most common malware, it is a simple virus that often catches users off guard when downloading files.",
+      gameDescription: "Downloads a virus that is unpleasant to deal with."
     }
   ];
+  
 
   function handleAttack() {
     if (!isAttacking) { // Ensure attack only runs if not already attacking
@@ -140,6 +147,11 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     setCurrentAttack(attacks[1]); 
   };
 
+  function handleNextY() {
+    setNextTetrominoY();
+    setCurrentAttack(attacks[4]); 
+  };
+
   function toggleQuestionVisibility() {
     if (!isQuestionVisible) {
       setIsQuestionVisible(true);
@@ -151,22 +163,24 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
 
   function handleAction(action) {
     if (action >= 8) {
-      handleNextX();
+      handleAttack();
     }
     else if (action >= 6) {
-      handleAttack();
+      handleNextX();
     } 
     else if (action === 4) {
       handleBlackout();
     } 
     else if (action >= 2) {
       toggleQuestionVisibility();
-    } 
+    } else if (action === 1) {
+      handleNextY();
+    }
     updateIncrementName(0); // Reset styles when action is taken
   };
 
   const handleKeyPress = useCallback((event) => {
-    if (event.key === '1' && incrementBar >= 2) {
+    if (event.key === '1' && incrementBar >= 1) {
       SendMessage(incrementBar);
       setIncrementBar(0);
       setIncrementName("NONE"); // Reset to Beginner
@@ -237,7 +251,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       setIncrementName("NONE");
     } else if (value >= 8) {
       setIncrementName(incrementNames[3]);
-      color = incrementColors[3];
+      color = 'gold';
     } else if (value >= 6) {
       setIncrementName(incrementNames[2]);
       color = incrementColors[2];
@@ -247,15 +261,23 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     } else if (value >= 2) {
       setIncrementName(incrementNames[0]);
       color = incrementColors[0];
+    } else if (value >= 1) {
+      setIncrementName("DOWNLOADS");
+      color = 'grey';
+    }
+    let glow = color;
+
+    if (glow = "#000000") {
+      glow = "#FFFFFF"
     }
     document.documentElement.style.setProperty('--bar-color', color);
-    document.documentElement.style.setProperty('--bar-glow', `0 0 30px ${color}`);
+    document.documentElement.style.setProperty('--bar-glow', `0 0 30px ${glow}`);
   };
 
   const incrementBarValue = () => {
     setIncrementBar((prev) => {
       const newValue = prev + 1; // Increment by 1
-      if (newValue % 2 === 0) { // Check if the value is 2, 4, 6, or 8
+      if (newValue % 2 === 0 || newValue === 1) { // Check if the value is 2, 4, 6, or 8 or 1
         updateIncrementName(newValue);
       }
       return newValue;
@@ -304,6 +326,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
           <div className="cyber-question">
             <Questions currentQuestion={currentQuestion} />
             <div className="timer">Time Left: {timer}s</div>
+            <p className="questions-left">Questions Left: {5 - correctAnswers}</p> {/* Display questions left */}
           </div>
         )}
      
@@ -313,7 +336,6 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         </div>
         <div className="increment-value">{incrementBar}</div> {/* Display the increment value separately */}
         <button onClick={incrementBarValue}>Increment Bar</button> {/* New button to increment the bar */}
-        {isQuestionVisible && <p>Correct Answers: {correctAnswers}/5</p>}
         {currentAttack && (
           <AttackInfo
             attackName={currentAttack.name}
