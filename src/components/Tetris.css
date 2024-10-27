@@ -65,6 +65,7 @@
   box-shadow: var(--bar-glow, none); /* Glow effect */
   transition: box-shadow 0.3s ease-in-out;
   position: relative;
+  text-align: left; /* Align text to the left */
 }
 
 .increment-bar .bar {
@@ -141,6 +142,47 @@
   background-color: var(--bar-color-8);
   box-shadow: 0 0 20px var(--bar-color-8);
   animation: shake 0.5s infinite, pulse 1s infinite alternate; /* Add shake animation */
+}
+
+.Questions {
+    background-color: #1a1a1a;
+    color: #00ff00;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00ff00;
+    margin-bottom: 20px;
+}
+
+.instructions {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+.key {
+    background-color: #333;
+    color: #00ff00;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.answer {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.cyber-attack-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--bar-color, grey);
+    text-shadow: 0 0 10px var(--bar-color, grey);
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    text-align: left; /* Align text to the left */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 300px; /* Set a fixed width */
+    overflow: hidden; /* Hide overflow */
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
 /* Glitch effect styles */

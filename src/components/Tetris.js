@@ -23,8 +23,9 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   const [isQuestionVisible, setIsQuestionVisible] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [timer, setTimer] = useState(3); // Timer state
-  const incrementNames = ["Beginner", "Intermediate", "Advanced", "Expert"]; // Names for the increment bar
-  const [incrementName, setIncrementName] = useState(incrementNames[0]); // Initial name
+  const incrementNames = ["PHISHING", "RANSOMWARE", "MITM", "DDoS"]; // Updated names
+  const incrementColors = ["#4CAF50", "#FFA726", "#e31212", "#000000"]; // Corresponding colors
+  const [incrementName, setIncrementName] = useState("NONE"); // Initial name
 
   useEffect(() => {
     console.log("socket initialized")
@@ -35,7 +36,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
             const actionNumber = reader.result;
             console.log('Attack received:', actionNumber);
             showPopupAndGlitch();
-            handleAction(Number(actionNumber));
+            handleAction(Math.floor(Number(actionNumber) / 2));
         };
         reader.readAsText(event.data);
     }
@@ -86,8 +87,10 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   });
 
   function handleAttack() {
-    setIsAttacking(true);
-    setTimeout(() => setIsAttacking(false), 100);
+    if (!isAttacking) { // Ensure attack only runs if not already attacking
+      setIsAttacking(true);
+      setTimeout(() => setIsAttacking(false), 1000); // Reset after 1 second
+    }
   };
 
   async function handleBlackout() {
@@ -127,6 +130,9 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     if (event.key === '1') {
       SendMessage(incrementBar);
       setIncrementBar(0);
+      setIncrementName("NONE"); // Reset to Beginner
+      document.documentElement.style.setProperty('--bar-color', 'grey'); // Reset to basic color
+      document.documentElement.style.setProperty('--bar-glow', 'grey'); // Remove glow effect
     } else if (event.key === '2') {
       const correctAnswer = questions[currentQuestionIndex][1];
       if (correctAnswer === 0) {
@@ -185,28 +191,26 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
     return () => clearInterval(countdown);
   }, [isQuestionVisible]);
 
+  
   const updateIncrementName = (value) => {
+    let color = 'grey'; // Default color
     if (value === 0) {
-      setIncrementName(incrementNames[0]); // Reset to Beginner
-      document.documentElement.style.setProperty('--bar-color', 'grey'); // Reset to basic color
-      document.documentElement.style.setProperty('--bar-glow', 'grey'); // Remove glow effect
+      setIncrementName("NONE");
     } else if (value >= 8) {
-      setIncrementName(incrementNames[3]); // Expert
-      document.documentElement.style.setProperty('--bar-color', '#000000'); // Most fancy color
-      document.documentElement.style.setProperty('--bar-glow', '0 0 30px #ffffff'); // Glow effect
+      setIncrementName(incrementNames[3]);
+      color = incrementColors[3];
     } else if (value >= 6) {
-      setIncrementName(incrementNames[2]); // Advanced
-      document.documentElement.style.setProperty('--bar-color', '#e31212'); // Fancier color
-      document.documentElement.style.setProperty('--bar-glow', '0 0 30px #e31212'); // Glow effect
+      setIncrementName(incrementNames[2]);
+      color = incrementColors[2];
     } else if (value >= 4) {
-      setIncrementName(incrementNames[1]); // Intermediate
-      document.documentElement.style.setProperty('--bar-color', '#FFA726'); // Intermediate color
-      document.documentElement.style.setProperty('--bar-glow', '0 0 30px #FFA726'); // Glow effect
+      setIncrementName(incrementNames[1]);
+      color = incrementColors[1];
     } else if (value >= 2) {
-      setIncrementName(incrementNames[0]); // Beginner
-      document.documentElement.style.setProperty('--bar-color', '#4CAF50'); // Basic color
-      document.documentElement.style.setProperty('--bar-glow', '0 0 20px #4CAF50'); // Glow effect
+      setIncrementName(incrementNames[0]);
+      color = incrementColors[0];
     }
+    document.documentElement.style.setProperty('--bar-color', color);
+    document.documentElement.style.setProperty('--bar-glow', `0 0 30px ${color}`);
   };
 
   const incrementBarValue = () => {
@@ -258,13 +262,8 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
             <div className="timer">Time Left: {timer}s</div>
           </div>
         )}
-        <div className="button-container">
-          <button onClick={handleAttack}>Attack!</button>
-          <button onClick={handleBlackout}>Blackout</button>
-          <button onClick={handleNextX}>Next X</button>
-          <button onClick={toggleQuestionVisibility}>Toggle Questions</button>
-        </div>
-        <h1> Power Gauge: {incrementName} </h1> {/* Display the current name */}
+     
+        <h1 className="cyber-attack-title"> Cyber Attack: <br />{incrementName} </h1> {/* Display the current name */}
         <div className="increment-bar">
           <div className="bar" style={{ width: `${(incrementBar % 2 / 2) * 100}%` }}></div> {/* Adjusted width */}
         </div>
