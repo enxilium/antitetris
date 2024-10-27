@@ -19,8 +19,8 @@ const Game = ({ rows, columns }) => {
     <div className="Game">
       {startGame ? (
         <PlayerSetup onStartGame={restart} />
-      ) : gameOver ? (
-        <GameOver onRestart={playAgain} winner="player1" />
+      ) : gameOver.status ? (
+        <GameOver onRestart={playAgain} win={gameOver.win} />
       ) : (
         <div className="GameBoard">
           <Tetris rows={rows} columns={columns} setGameOver={setGameOver} setStartGame={setStartGame} />

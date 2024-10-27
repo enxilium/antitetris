@@ -36,9 +36,14 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         const reader = new FileReader();
         reader.onload = function() {
             const actionNumber = reader.result;
-            console.log('Attack received:', actionNumber);
-            showPopupAndGlitch();
-            handleAction(Math.floor(Number(actionNumber) / 2));
+            if (actionNumber == "GameOver") {
+              console.log('You win!', actionNumber);
+              handleGameOver(actionNumber);
+            } else {
+              console.log('Attack received:', actionNumber);
+              showPopupAndGlitch();
+              handleAction(Number(actionNumber));
+            }
         };
         reader.readAsText(event.data);
     }
@@ -145,26 +150,29 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
   };
 
   function handleAction(action) {
-    if (action === 1) {
-      toggleQuestionVisibility();
-    } else if (action === 2) {
-      handleBlackout();
-    } else if (action === 3) {
+    if (action >= 8) {
       handleNextX();
-    } else if (action >= 4) {
-      handleAttack();
     }
+    else if (action >= 6) {
+      handleAttack();
+    } 
+    else if (action === 4) {
+      handleBlackout();
+    } 
+    else if (action >= 2) {
+      toggleQuestionVisibility();
+    } 
     updateIncrementName(0); // Reset styles when action is taken
   };
 
   const handleKeyPress = useCallback((event) => {
-    if (incrementBar >= 2 &&event.key === '1') {
+    if (event.key === '1' && incrementBar >= 2) {
       SendMessage(incrementBar);
       setIncrementBar(0);
       setIncrementName("NONE"); // Reset to Beginner
       document.documentElement.style.setProperty('--bar-color', 'grey'); // Reset to basic color
       document.documentElement.style.setProperty('--bar-glow', 'grey'); // Remove glow effect
-    } else if (isQuestionVisible && event.key === '2') {
+    } else if (event.key === '2' && isQuestionVisible) {
       const correctAnswer = questions[currentQuestionIndex][1];
       if (correctAnswer === 0) {
         setCorrectAnswers(prev => {
@@ -179,7 +187,7 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         setIsQuestionVisible(false);
         handleNextX(); // Handle incorrect answer
       }
-    } else if (isQuestionVisible && event.key === '3') {
+    } else if (event.key === '3' && isQuestionVisible) {
       const correctAnswer = questions[currentQuestionIndex][1];
       if (correctAnswer === 1) {
         setCorrectAnswers(prev => {
@@ -282,6 +290,11 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
       setTimeout(() => {
         glitch.style.display = 'none';
       }, 500);
+  };
+
+  function handleGameOver() {
+    // Navigate to the GameOver screen
+    setGameOver({ status: true, win: true });
   };
 
   return (

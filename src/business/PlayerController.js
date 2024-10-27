@@ -2,6 +2,8 @@ import { hasCollision, isWithinBoard } from "/src/business/Board";
 import { rotate } from "/src/business/Tetrominoes";
 import { Action } from "/src/business/Input";
 
+import { SendMessage } from "../components/GameController";
+
 const attemptRotation = ({ board, player, setPlayer }) => {
   const shape = rotate({
     piece: player.tetromino.shape,
@@ -77,7 +79,8 @@ const attemptMovement = ({ board, action, player, setPlayer, setGameOver }) => {
   // Did we collide immediately? If so, game over, man!
   const isGameOver = collided && player.position.row === 0;
   if (isGameOver) {
-    setGameOver(isGameOver);
+    SendMessage("GameOver");
+    setGameOver({status: isGameOver, win: false});
     return;
   }
 
