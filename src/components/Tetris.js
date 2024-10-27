@@ -259,7 +259,9 @@ const Tetris = ({ rows, columns, setGameOver, setStartGame }) => {
         <div className={`blackout-overlay ${isBlackedOut ? 'visible' : 'hidden'}`}>
           <p>Type the following code to remove blackout:</p>
           <p className="blackout-code">{currentBlackoutCode}</p> {/* Display the random code */}
-          <div className="blackout-input">{blackoutInput}</div> {/* Display the user's input */}
+          <input className="blackout-input"/>
+          <div>{blackoutInput}</div>
+
         </div>
       </div>
       <div className="panel">
