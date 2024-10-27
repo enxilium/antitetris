@@ -7,7 +7,7 @@ import { playerController } from "/src/business/PlayerController";
 import { useDropTime } from "/src/hooks/useDropTime";
 import { useInterval } from "/src/hooks/useInterval";
 
-export const socket = new WebSocket('wss://cyberattacker_tetris.up.railway.app');
+export const socket = new WebSocket('wss://cyberattackertetris-production.up.railway.app');
 // Send a message to the server
 export function SendMessage(data) {
   if (socket.readyState === WebSocket.OPEN) {
