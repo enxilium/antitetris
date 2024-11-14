@@ -3,7 +3,7 @@ ANTITETRIS is an interactive cybersecurity game that brings the thrill of compet
 
 ![image](https://github.com/user-attachments/assets/a910f71c-e3d5-4ff3-99d5-5494fe670375)
 
-You can try it out [here](https://antitetris.vercel.app).
+You can try it out [here](https://antitetris.vercel.app). Note that two players are required!
 ## Inspiration
 Cybersecurity is a critical skill in today's digital world, but learning it often involves vast, theoretical material. We wanted to change this. We thought about an idea where players could learn cybersecurity principles in a way that's as exhilarating as a competitive game. ANTITETRIS was born from this - a competitive game where players could not only learn but also experience various cybersecurity attack simulations.
 
