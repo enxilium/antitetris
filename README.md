@@ -18,7 +18,7 @@ ANTITETRIS is a two-player, cybersecurity game where players aim to stay on the 
 
 ## How we built it
 ### Tech Stack:
-**Frontend:** Next.js create a smooth, intuitive interface, keeping players engaged and focused on strategy.
+**Frontend:** Next.js creates a smooth, intuitive interface, keeping players engaged and focused on strategy.
 
 **Backend:** Node.js and WebSockets power real-time interactions, creating a seamless multiplayer experience.
 
